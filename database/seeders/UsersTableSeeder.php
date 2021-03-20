@@ -35,5 +35,23 @@ class UsersTableSeeder extends Seeder
             'region_id' => 1,
             'etat' => 0,
         ]);
+
+        DB::table('type_utilisateurs')->insert([
+            'nom' => 'Administrateur',
+        ]);
+
+        DB::table('republiques')->insert([
+            'nomrep' => 'TOGOLAISE',
+        ]);
+
+        DB::table('regions')->insert([
+            'nom' => 'Maritime',
+            'republique_id' => 1,
+        ]);
+
+        DB::table('etats')->insert([
+            'etat' => 1,
+        ]);
+    
     }
 }

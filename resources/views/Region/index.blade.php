@@ -7,6 +7,11 @@
     <ul>
     <div class="container-fluid">
        <div class="card">
+                          @if (session()->has('messagealert'))
+                          <div class="alert alert-danger" role="alert">
+                          {{ session()->get('messagealert') }}
+                          </div>
+                          @endif
           <div class="card-header card-header-primary">  
             <h4 class="card-title">Région</h4>
              <!-- <p class="card-category">Created using Roboto Font Family</p>  -->

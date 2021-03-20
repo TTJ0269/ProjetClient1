@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Modifier le profil : {{ $candidat->nom }}</h1>
+<h1>Modifier le profil : {{ $candidat->nomcd }}</h1>
 <form action="{{ route('candidats.update', ['candidat' => $candidat->id]) }}" method="POST" enctype="multipart/form-data">
   @method('PATCH')
   @include('Candidat.form')

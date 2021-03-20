@@ -3,10 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Republique;
 
 class RepubliqueController extends Controller
 {
+
+  public function __construct()
+  {
+    try
+    {
+      $this->middleware('auth');//->except(['index'])
+      $this->middleware('limite');
+    }
+      catch(\Exception $exception)
+      {
+           // return $exception->getMessage();
+           return redirect('erreur')->with('messagealert',$exception->getMessage());
+      }
+  }
        /**
      * Display a listing of the resource.
      *
@@ -15,9 +30,17 @@ class RepubliqueController extends Controller
    // Afficher les republiques
    public function index()
    {
-   $republiques = Republique::all();
+     try
+     {
+      $republiques = Republique::all();
 
-   return view('Republique.index', compact('republiques'));
+      return view('Republique.index', compact('republiques'));
+     }
+      catch(\Exception $exception)
+      {
+            // return $exception->getMessage();
+            return redirect('erreur')->with('messagealert',$exception->getMessage());
+      }
    }
 
      /**
@@ -28,9 +51,17 @@ class RepubliqueController extends Controller
 
    public function create()
    {
+     try
+     {
        $republique = new Republique();
 
        return view('Republique.create',compact('republique'));
+     }
+      catch(\Exception $exception)
+      {
+            // return $exception->getMessage();
+            return redirect('erreur')->with('messagealert',$exception->getMessage());
+      }
    }
 
      /**
@@ -42,9 +73,17 @@ class RepubliqueController extends Controller
 
    public function store()
    {   
+     try
+     {
        $republique = Republique::create($this->validator());
 
        return redirect('republiques')->with('message', 'République bien ajouté.');
+     }
+       catch(\Exception $exception)
+       {
+            // return $exception->getMessage();
+            return redirect('erreur')->with('messagealert',$exception->getMessage());
+       }
    }
 
     /**
@@ -56,8 +95,16 @@ class RepubliqueController extends Controller
 
    public function show(Republique $republique)
    {
-   // $republique = Republique::where('idrep',$republique)->firstOrfail();
-     return view('Republique.show',compact('republique'));
+     try
+     {
+      // $republique = Republique::where('idrep',$republique)->firstOrfail();
+      return view('Republique.show',compact('republique'));
+     }
+     catch(\Exception $exception)
+     {
+          // return $exception->getMessage();
+          return redirect('erreur')->with('messagealert',$exception->getMessage());
+     }
    }
 
   /**
@@ -69,8 +116,16 @@ class RepubliqueController extends Controller
 
    public function edit(Republique $republique)
    {
-   // $republique = Republique::where('idrep',$republique)->firstOrfail();
+     try
+     {
+       // $republique = Republique::where('idrep',$republique)->firstOrfail();
        return view('Republique.edit', compact('republique'));
+     }
+       catch(\Exception $exception)
+       {
+            // return $exception->getMessage();
+            return redirect('erreur')->with('messagealert',$exception->getMessage());
+       }
    }
 
       /**
@@ -83,11 +138,18 @@ class RepubliqueController extends Controller
 
    public function update(Republique $republique)
    {
-    //$republique->update('idrep',$republique)->firstOrfail();
-     // dd($republique);
-      $republique->update($this->validator());
+     try
+     {
 
-       return redirect('republiques/' . $republique->id);
+        $republique->update($this->validator());
+
+        return redirect('republiques/' . $republique->id);
+     }
+       catch(\Exception $exception)
+       {
+            // return $exception->getMessage();
+            return redirect('erreur')->with('messagealert',$exception->getMessage());
+       }
    }
 
     /**
@@ -99,9 +161,26 @@ class RepubliqueController extends Controller
 
    public function destroy(Republique $republique)
    {
-    $republique->delete();
+     try
+     {
+       $reference = DB::table('regions')
+       ->where('regions.republique_id','=',$republique->id)
+       ->select('regions.id')
+       ->first();
 
-       return redirect('republiques');
+       if($reference->id == null)
+       {
+        $republique->delete();
+
+        return redirect('republiques');
+       }
+      return redirect('republiques')->with('messagealert','Cette république est referencée dans une autre table');
+
+     }
+       catch(\Exception $exception)
+       {
+        return redirect('erreur')->with('messagealert',$exception->getMessage());
+       }
    }
 
    private  function validator()

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'utilisateur', 'titlePage' => __('Utilisateur')])
+@extends('layouts.app', ['activePage' => 'users', 'titlePage' => __('Utilisateur')])
 
 @section('content')
 
@@ -7,6 +7,16 @@
 
     <ul>
     <div class="container-fluid">
+                          @if (session()->has('message'))
+                          <div class="alert alert-success" role="alert">
+                          {{ session()->get('message') }}
+                          </div>
+                          @endif
+                          @if (session()->has('messagealert'))
+                          <div class="alert alert-danger" role="alert">
+                          {{ session()->get('messagealert') }}
+                          </div>
+                          @endif
        <div class="card">
           <div class="card-header card-header-primary">  
             <h4 class="card-title">Utilisateur</h4>

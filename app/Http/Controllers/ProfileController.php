@@ -18,6 +18,12 @@ class ProfileController extends Controller
         return view('profile.edit');
     }
 
+    //ajoute
+    public function editelecteur()
+    {
+        return view('profile.editelecteur');
+    }
+
     /**
      * Update the profile
      *

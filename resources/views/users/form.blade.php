@@ -1,8 +1,13 @@
 @csrf
 <div class="container-fluid">
+                          @if (session()->has('messagealert'))
+                          <div class="alert alert-danger" role="alert">
+                          {{ session()->get('messagealert') }}
+                          </div>
+                          @endif
   <div class="card">
      <div class="card-header card-header-primary">
-        <h4 class="card-title">Utilisateur</h4>
+        <h4 class="card-title">Infromations des Utilisateurs</h4>
         <!-- <p class="card-category">Created using Roboto Font Family</p>  -->
       </div>
          <div class="card-body">
@@ -13,7 +18,7 @@
                <div class="content">
                      
                    <div class="form-group my-3">
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Rentrez le name de l'utilisateur..." value="{{ old('name') ?? $user->name }}">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Rentrez le name de l'utilisateur..." value="{{ old('name') ?? $user->name }}" autofocus  required/>
                     @error('name')
                         <div class="invalid-feedback">
                             {{ $errors->first('name')}}
@@ -22,7 +27,7 @@
                     </div>
 
                     <div class="form-group my-3">
-                    <input type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" placeholder="Rentrez le nom de l'utilisateur..." value="{{ old('nom') ?? $user->nom }}">
+                    <input type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" placeholder="Rentrez le nom de l'utilisateur..." value="{{ old('nom') ?? $user->nom }}" autofocus  required/>
                     @error('nom')
                         <div class="invalid-feedback">
                             {{ $errors->first('nom')}}
@@ -31,7 +36,7 @@
                     </div>
 
                     <div class="form-group my-3">
-                    <input type="text" class="form-control @error('prenom') is-invalid @enderror" name="prenom" placeholder="Rentrez le prenom de l'utilisateur..." value="{{ old('prenom') ?? $user->prenom }}">
+                    <input type="text" class="form-control @error('prenom') is-invalid @enderror" name="prenom" placeholder="Rentrez le prenom de l'utilisateur..." value="{{ old('prenom') ?? $user->prenom }}" autofocus  required/>
                     @error('prenom')
                         <div class="invalid-feedback">
                             {{ $errors->first('prenom')}}
@@ -58,7 +63,7 @@
                     </div>
 
                     <div class="form-group my-3">
-                    <input type="text" class="form-control @error('profession') is-invalid @enderror" name="profession" placeholder="Rentrez la profession de l'utilisateur..." value="{{ old('profession') ?? $user->profession }}">
+                    <input type="text" class="form-control @error('profession') is-invalid @enderror" name="profession" placeholder="Rentrez la profession de l'utilisateur..." value="{{ old('profession') ?? $user->profession }}" autofocus  required/>
                     @error('profession')
                         <div class="invalid-feedback">
                             {{ $errors->first('profession')}}
@@ -79,7 +84,7 @@
                     </div>
 
                     <div class="form-group my-3">
-                    <input type="date" class="form-control @error('datenaissance') is-invalid @enderror" name="datenaissance" placeholder="Rentrez la date de naissance de l'utilisateur..." value="{{ old('datenaissance') ?? $user->datenaissance }}">
+                    <input type="date" class="form-control @error('datenaissance') is-invalid @enderror" name="datenaissance" placeholder="Rentrez la date de naissance de l'utilisateur..." value="{{ old('datenaissance') ?? $user->datenaissance }}" autofocus  required/>
                     @error('datenaissance')
                         <div class="invalid-feedback">
                             {{ $errors->first('datenaissance')}}
@@ -88,7 +93,7 @@
                     </div>
 
                     <div class="form-group my-3">
-                    <input type="text" class="form-control @error('adresse') is-invalid @enderror" name="adresse" placeholder="Rentrez l'adresse de l'utilisateur..." value="{{ old('adresse') ?? $user->adresse }}">
+                    <input type="text" class="form-control @error('adresse') is-invalid @enderror" name="adresse" placeholder="Rentrez l'adresse de l'utilisateur..." value="{{ old('adresse') ?? $user->adresse }}" autofocus  required/>
                     @error('adresse')
                         <div class="invalid-feedback">
                             {{ $errors->first('adresse')}}
@@ -109,7 +114,7 @@
                     </div>
                     
                     <div class="form-group my-3">
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Rentrez email de l'utilisateur..." value="{{ old('email') ?? $user->email }}">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Rentrez email de l'utilisateur..." value="{{ old('email') ?? $user->email }}" autofocus  required/>
                     @error('email')
                         <div class="invalid-feedback">
                             {{ $errors->first('email')}}
@@ -117,14 +122,14 @@
                     @enderror
                     </div>
 
-                    <div class="form-group my-3">
-                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Rentrez le mot de passe de l'utilisateur..." value="{{ old('password') ?? $user->password }}">
+                    <!--div class="form-group my-3">
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Rentrez le mot de passe de l'utilisateur..." value="{{ old('password') ?? $user->password }}" autofocus  required/>
                     @error('password')
                         <div class="invalid-feedback">
                             {{ $errors->first('password')}}
                         </div>   
                     @enderror
-                    </div>
+                    </div-->
 
                     <div class="form-group my-3">
                     <select class="custom-select @error('type_utilisateur_id') is-invalid @enderror" name="type_utilisateur_id">

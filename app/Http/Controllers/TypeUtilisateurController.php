@@ -3,10 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\TypeUtilisateur;
 
 class TypeUtilisateurController extends Controller
 {
+
+  public function __construct()
+  {
+    try
+    {
+      $this->middleware('auth');//->except(['index'])
+      $this->middleware('limite');
+    }
+    catch(\Exception $exception)
+    {
+        // return $exception->getMessage();
+        return view('Erreurs.erreur');
+    }
+  }
            /**
      * Display a listing of the resource.
      *
@@ -15,9 +30,17 @@ class TypeUtilisateurController extends Controller
    // Afficher les types utilisateurs
    public function index()
    {
-   $type_utilisateurs = TypeUtilisateur::all();
+     try
+     {
+        $type_utilisateurs = TypeUtilisateur::all();
 
-   return view('TypeUtilisateur.index', compact('type_utilisateurs'));
+        return view('TypeUtilisateur.index', compact('type_utilisateurs'));
+     }
+   catch(\Exception $exception)
+     {
+        // return $exception->getMessage();
+        return view('Erreurs.erreur');
+     }
    }
 
      /**
@@ -28,9 +51,17 @@ class TypeUtilisateurController extends Controller
 
    public function create()
    {
+     try
+     {
        $type_utilisateur = new TypeUtilisateur();
 
        return view('TypeUtilisateur.create',compact('type_utilisateur'));
+     }
+    catch(\Exception $exception)
+    {
+          // return $exception->getMessage();
+          return view('Erreurs.erreur');
+    }
    }
 
      /**
@@ -42,9 +73,18 @@ class TypeUtilisateurController extends Controller
 
    public function store()
    {   
-       $type_utilisateur = TypeUtilisateur::create($this->validator());
+     try
+     {
+      $type_utilisateur = TypeUtilisateur::create($this->validator());
 
-       return redirect('type_utilisateurs')->with('message', 'type bien ajouté.');
+      return redirect('type_utilisateurs')->with('message', 'type bien ajouté.');
+     }
+     catch(\Exception $exception)
+     {
+          // return $exception->getMessage();
+          return view('Erreurs.erreur');
+     }
+
    }
 
     /**
@@ -56,7 +96,15 @@ class TypeUtilisateurController extends Controller
 
    public function show(TypeUtilisateur $type_utilisateur)
    {
-     return view('TypeUtilisateur.show',compact('type_utilisateur'));
+     try
+     {
+       return view('TypeUtilisateur.show',compact('type_utilisateur'));
+     }
+     catch(\Exception $exception)
+     {
+          // return $exception->getMessage();
+          return view('Erreurs.erreur');
+     }
    }
 
   /**
@@ -68,7 +116,15 @@ class TypeUtilisateurController extends Controller
 
    public function edit(TypeUtilisateur $type_utilisateur)
    {
+     try
+     {
        return view('TypeUtilisateur.edit', compact('type_utilisateur'));
+     }
+    catch(\Exception $exception)
+    {
+        // return $exception->getMessage();
+        return view('Erreurs.erreur');
+    }
    }
 
       /**
@@ -81,9 +137,17 @@ class TypeUtilisateurController extends Controller
 
    public function update(TypeUtilisateur $type_utilisateur)
    {
+     try
+     {
       $type_utilisateur->update($this->validator());
 
        return redirect('type_utilisateurs/' . $type_utilisateur->id);
+     }
+    catch(\Exception $exception)
+    {
+        // return $exception->getMessage();
+        return view('Erreurs.erreur');
+    }
    }
 
     /**
@@ -95,9 +159,28 @@ class TypeUtilisateurController extends Controller
 
    public function destroy(TypeUtilisateur $type_utilisateur)
    {
-    $type_utilisateur->delete();
+     try
+     {
 
-       return redirect('type_utilisateurs');
+      $reference = DB::table('users')
+       ->where('users.type_utilisateur_id','=',$type_utilisateur->id)
+       ->select('users.id')
+       ->first();
+
+       if($reference->id == null)
+       {
+        $type_utilisateur->delete();
+
+        return redirect('type_utilisateurs');
+       }
+      return redirect('type_utilisateurs')->with('messagealert','Ce type est referencé dans une autre table');
+      
+     }
+      catch(\Exception $exception)
+      {
+          // return $exception->getMessage();
+          return view('Erreurs.erreur');
+      }
    }
 
    private  function validator()

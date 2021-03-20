@@ -19,7 +19,6 @@
                 </form>
                 <hr>
                 <p><strong>Nom :</strong> {{$region->nom}}</p>
-                <p><strong>Id :</strong> Auth::user()->id</p>
             </div>
        </div>
   </div>

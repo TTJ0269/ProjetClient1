@@ -50,7 +50,7 @@
                     @enderror
                     </div>
 
-                    <div class="form-group my-3">
+                    <!--div class="form-group my-3">
                         <div class="custom-file">
                             <input type="file" name="pancarteparti" class="custom-file-input @error('pancarteparti') is-invalid @enderror" id="validatedCustomFile" value="{{ old('pancarteparti') ?? $candidat->pancarteparti }}">
                             <label class="custom-file-label" for="validatedCustomFile"> Choisir une image de la pancarte...</label>
@@ -60,7 +60,7 @@
                             </div>   
                         @enderror
                         </div>
-                    </div>
+                    </div-->
                 </div>
             </div>
          </div>

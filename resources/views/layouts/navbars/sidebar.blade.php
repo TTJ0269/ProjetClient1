@@ -5,19 +5,27 @@
       Tip 2: you can also add an image using data-image tag
   -->
   <div class="logo">
-    <a href="https://creative-tim.com/" class="simple-text logo-normal">
+    <a href="#" class="simple-text logo-normal"> <!--https://creative-tim.com/ --> 
       {{ __('election') }}
     </a>
   </div>
   <div class="sidebar-wrapper">
+        <table class="table">
+                <thead>
+                    <th scope="col"><img src="{{ asset('storage/' .Auth::user()->image) }}" alt="Image" class="img-thumbnail" width="70"></th>
+                    <th scope="col">{{Auth::user()->nom}}</th>
+                    <th scope="col">{{Auth::user()->prenom}}</th>
+                </thead>
+        </table>
+           
       <ul class="nav">
      <!-- <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('home') }}">
+        <a class="nav-link" href="{{ route('dashboard') }}">
           <i class="material-icons">dashboard</i>
             <p>{{ __('Dashboard') }}</p>
         </a>
       </li> 
-      <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'user-management') ? ' active' : '' }}">
+     <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'user-management') ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#laravelExample" aria-expanded="true">
           <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>
           <p>{{ __('Laravel Examples') }}
@@ -47,6 +55,13 @@
             <p>{{ __('connexion') }}</p>
         </a>
       </li>-->
+      
+      <li class="nav-item{{ $activePage == 'votelimite' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('votelimite') }}">
+          <i class="material-icons"></i>
+            <p>{{ __('Limite-Vote') }}</p>
+        </a>
+        </li>
       <li class="nav-item{{ $activePage == 'republique' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('republiques.index') }}">
           <i class="material-icons"></i>
@@ -77,21 +92,19 @@
             <p>{{ __('Candidat') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'vote' ? ' active' : '' }}">
-        <a class="nav-link" href="{{route('votes_form') }}">
+      <li class="nav-item{{ $activePage == 'nombrevoteregion' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('nombrevoteregion') }}">
           <i class="material-icons"></i>
-            <p>{{ __('Vote') }}</p>
+            <p>{{ __('Voix par Region') }}</p>
         </a>
       </li>
-
-
       <li class="nav-item {{ ($activePage == 'participervote' || $activePage == 'pasparticipervote') ? ' active' : '' }}">
-        <a class="nav-link" data-toggle="collapse" href="#laravelExample" aria-expanded="true">
+        <a class="nav-link" data-toggle="collapse" href="#laravel" aria-expanded="true">
           <p>{{ __('Electeur-Vote') }}
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse show" id="laravelExample">
+        <div class="collapse show" id="laravel">
           <ul class="nav">
             <li class="nav-item{{ $activePage == 'participervote' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('participer_vote') }}">
@@ -106,16 +119,15 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item{{ $activePage == 'map' ? ' active' : '' }}">
+
+     <!--  <li class="nav-item{{ $activePage == 'map' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('map') }}">
           <i class="material-icons"></i>
             <p>{{ __('Maps') }}</p>
         </a>
       </li>
-    
-
-      
-    <!--  <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
+       
+     <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('typography') }}">
           <i class="material-icons"></i>
             <p>{{ __('Typography') }}</p>

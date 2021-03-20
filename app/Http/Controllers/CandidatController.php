@@ -3,66 +3,149 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Candidat;
 
 class CandidatController extends Controller
 {
+
+    public function __construct()
+    {
+        try
+        {
+          $this->middleware('auth');//->except(['index'])
+        }
+        catch(\Exception $exception)
+        {
+             // return $exception->getMessage();
+             return view('Erreurs.erreur');
+        }
+    }
+    
     public function index()
     {
-        $candidats = Candidat::all();
+        try
+        {
+            $candidats = Candidat::all();
 
-        return view('Candidat.index', compact('candidats'));
+            return view('Candidat.index', compact('candidats'));
+        }
+        catch(\Exception $exception)
+        {
+             // return $exception->getMessage();
+             return view('Erreurs.erreur');
+        }
     }
 
     public function create()
     {
-        $candidat = new Candidat();
- 
-        return view('Candidat.create',compact('candidat'));
+        try
+        {
+            $candidat = new Candidat();
+    
+            return view('Candidat.create',compact('candidat'));
+        }
+        catch(\Exception $exception)
+        {
+             // return $exception->getMessage();
+             return view('Erreurs.erreur');
+        }
     }
  
  
     public function store()
     {   
-        $candidats = Candidat::create($this->validator());
- 
-        $this->storeImage($candidats);
+        try
+        {
+            $candidats = Candidat::create($this->validator());
+    
+            $this->storeImage($candidats);
 
-        $this->storePancarte($candidats);
- 
-        return redirect('candidats')->with('message', 'Candidat bien ajouté.');
+            $this->storePancarte($candidats);
+    
+            return redirect('candidats')->with('message', 'Candidat bien ajouté.');
+        }
+        catch(\Exception $exception)
+        {
+             // return $exception->getMessage();
+             return view('Erreurs.erreur');
+        }
     }
  
 
     public function show(Candidat $candidat)
     {
-      return view('Candidat.show',compact('candidat'));
+        try
+        {
+           return view('Candidat.show',compact('candidat'));
+        }
+        catch(\Exception $exception)
+        {
+           // return $exception->getMessage();
+           return view('Erreurs.erreur');
+        }
     }
  
  
     public function edit(Candidat $candidat)
     {
-        return view('Candidat.edit', compact('candidat'));
+        try
+        {
+          return view('Candidat.edit', compact('candidat'));
+        }
+        catch(\Exception $exception)
+        {
+            // return $exception->getMessage();
+            return view('Erreurs.erreur');
+        }
     }
 
 
     public function update(Candidat $candidat)
     {
-       $candidat->update($this->validator());
- 
-       $this->storeImage($candidat);
+        try
+        {
 
-       $this->storePancarte($candidat);
- 
-        return redirect('candidats/' . $candidat->id);
+            $candidat->update($this->validator());
+        
+            $this->storeImage($candidat);
+
+            $this->storePancarte($candidat);
+        
+                return redirect('candidats/' . $candidat->id);
+        }
+        catch(\Exception $exception)
+        {
+             // return $exception->getMessage();
+             return view('Erreurs.erreur');
+        }
     }
  
  
     public function destroy(Candidat $candidat)
     {
-     $candidat->delete();
- 
-        return redirect('candidats');
+        try
+        {
+
+            $reference = DB::table('votes')
+            ->where('votes.candidat_id','=',$candidat->id)
+            ->select('votes.id')
+            ->first();
+     
+            if($reference->id == null)
+            {
+                $candidat->delete();
+    
+                return redirect('candidats');
+            }
+           return redirect('candidats')->with('messagealert','Ce candidat est referencé dans une autre table');
+    
+        }
+        catch(\Exception $exception)
+        {
+                // return $exception->getMessage();
+                return view('Erreurs.erreur');
+        }
     }
  
     private  function validator()

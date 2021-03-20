@@ -1,6 +1,6 @@
 @extends('layouts.app', ['activePage' => 'users', 'titlePage' => __('Utilisateur')])
 
-@section('content')-->
+@section('content')
 
 <div class="content">
     <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">

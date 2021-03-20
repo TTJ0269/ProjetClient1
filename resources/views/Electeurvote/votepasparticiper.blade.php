@@ -3,6 +3,9 @@
 @section('content')
 <div class="content">
    <ul>
+          @foreach($nombre_pas_voter as $nrb)
+          <p><strong>Nombre:</strong>{{$nrb->nombre}}</p>
+          @endforeach
    <div class="container-fluid">
        <div class="card">
           <div class="card-header card-header-primary">  

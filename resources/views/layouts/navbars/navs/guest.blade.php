@@ -23,17 +23,27 @@
             <i class="material-icons">person_add</i> {{ __('Register') }}
           </a>
         </li>
-        -->
+       fingerprint  face -->
+       <li class="nav-item{{ $activePage == 'verification' ? ' active' : '' }}">
+          <a href="{{ route('formverifier') }}" class="nav-link">
+            <i class="material-icons"></i> {{ __('vérification') }}
+          </a>
+        </li>
         <li class="nav-item{{ $activePage == 'login' ? ' active' : '' }}">
           <a href="{{ route('login') }}" class="nav-link">
-            <i class="material-icons">fingerprint</i> {{ __('Se connecter') }}
+            <i class="material-icons"></i> {{ __('Se connecter') }}
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item{{ $activePage == 'nbvoix' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('nbvotecandidat') }}">
+           <i class="material-icons"></i> {{ __('Publication des votes') }}
+        </a>
+        </li>
+        <!--li class="nav-item ">
           <a href="{{ route('profile.edit') }}" class="nav-link">
-            <i class="material-icons">face</i> {{ __('Profile') }}
+            <i class="material-icons"></i> {{ __('Profile') }}
           </a>
-        </li>
+        </li-->
       </ul>
     </div>
   </div>

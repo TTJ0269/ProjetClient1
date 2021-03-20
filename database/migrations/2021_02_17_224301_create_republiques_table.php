@@ -15,7 +15,7 @@ class CreateRepubliquesTable extends Migration
     {
         Schema::create('republiques', function (Blueprint $table) {
             $table->id();
-            $table->string('nomrep');
+            $table->string('nomrep')->unique();
             $table->timestamps();
         });
     }

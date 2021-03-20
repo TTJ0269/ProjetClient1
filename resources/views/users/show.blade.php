@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'utilisateur', 'titlePage' => __('Utilisateur')])
+@extends('layouts.app', ['activePage' => 'users', 'titlePage' => __('Utilisateur')])
 
 @section('content')
 <div class="content">
@@ -13,6 +13,7 @@
            <div class="card-body">    
 
                 <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-yellow my-3">Modifier</a>
+                
                 <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" style="display: inline;">
                 @csrf
                 @method('DELETE')

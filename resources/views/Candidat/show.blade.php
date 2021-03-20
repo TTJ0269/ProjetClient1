@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="content">
-            <h1> {{$candidat->nom}} </h1>
+            <h1> {{$candidat->nomcd}} </h1>
    <div class="container-fluid">
        <div class="card">
           <div class="card-header card-header-primary">  
@@ -12,7 +12,7 @@
           </div>
      
             <div class="card-body">  
-              <a href="{{ route('candidats.edit', ['candidat' => $candidat->id]) }}" class="btn btn-secondary my-3">Modifier</a>
+              <a href="{{ route('candidats.edit', ['candidat' => $candidat->id]) }}" class="btn btn-info my-3">Modifier</a>
               <form action="{{ route('candidats.destroy', ['candidat' => $candidat->id]) }}" method="POST" style="display: inline;">
               @csrf
               @method('DELETE')
